@@ -106,6 +106,7 @@ void set_static_features_for_var(Features&& out, SCIP_VAR* const var, value_type
 	out[idx(VariableFeatures::is_type_integer)] = 0.;
 	out[idx(VariableFeatures::is_type_implicit_integer)] = 0.;
 	out[idx(VariableFeatures::is_type_continuous)] = 0.;
+	out[idx(VariableFeatures::index)] = SCIPvarIsOriginal(var);
 	switch (SCIPvarGetType(var)) {
 	case SCIP_VARTYPE_BINARY:
 		out[idx(VariableFeatures::is_type_binary)] = 1.;
@@ -147,6 +148,7 @@ void set_dynamic_features_for_var(
 	out[idx(VariableFeatures::is_basis_basic)] = 0.;
 	out[idx(VariableFeatures::is_basis_upper)] = 0.;
 	out[idx(VariableFeatures::is_basis_zero)] = 0.;
+	
 	switch (SCIPcolGetBasisStatus(col)) {
 	case SCIP_BASESTAT_LOWER:
 		out[idx(VariableFeatures::is_basis_lower)] = 1.;
@@ -163,6 +165,10 @@ void set_dynamic_features_for_var(
 	default:
 		utility::unreachable();
 	}
+
+	int i = SCIPvarGetProbindex(var);
+	SCIP_VAR* aux = SCIPgetOrigVars(scip)[i];
+	out[idx(VariableFeatures::index)] = SCIPvarGetProbindex(SCIPvarGetTransVar(aux));
 }
 
 void set_features_for_all_vars(xmatrix& out, scip::Model& model, bool const update_static) {
