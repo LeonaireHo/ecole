@@ -106,7 +106,7 @@ void set_static_features_for_var(Features&& out, SCIP_VAR* const var, value_type
 	out[idx(VariableFeatures::is_type_integer)] = 0.;
 	out[idx(VariableFeatures::is_type_implicit_integer)] = 0.;
 	out[idx(VariableFeatures::is_type_continuous)] = 0.;
-	out[idx(VariableFeatures::index)] = SCIPvarIsOriginal(var);
+
 	switch (SCIPvarGetType(var)) {
 	case SCIP_VARTYPE_BINARY:
 		out[idx(VariableFeatures::is_type_binary)] = 1.;

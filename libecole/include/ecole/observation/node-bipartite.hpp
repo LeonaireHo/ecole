@@ -13,13 +13,12 @@ namespace ecole::observation {
 struct ECOLE_EXPORT NodeBipartiteObs {
 	using value_type = double;
 
-	static inline std::size_t constexpr n_static_variable_features = 6;
-	static inline std::size_t constexpr n_dynamic_variable_features = 14;
+	static inline std::size_t constexpr n_static_variable_features = 5;
+	static inline std::size_t constexpr n_dynamic_variable_features = 15;
 	static inline std::size_t constexpr n_variable_features = n_static_variable_features + n_dynamic_variable_features;
 	enum struct ECOLE_EXPORT VariableFeatures : std::size_t {
 		/** Static features */
 		objective = 0,
-		index = 0,
 		is_type_binary,            // One hot encoded
 		is_type_integer,           // One hot encoded
 		is_type_implicit_integer,  // One hot encoded
@@ -40,6 +39,7 @@ struct ECOLE_EXPORT NodeBipartiteObs {
 		is_basis_basic,  // One hot encoded
 		is_basis_upper,  // One hot encoded
 		is_basis_zero,   // One hot encoded
+		index,
 	};
 
 	static inline std::size_t constexpr n_static_row_features = 2;
